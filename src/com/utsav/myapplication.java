@@ -13,11 +13,13 @@ public class myapplication extends Application {
 
     public static Set<String> flaggedappspackage = new HashSet<String>() {{
         add("com.whatsapp");
+        add("com.android.chrome");
     }
     };
 
     public static Set<String> flaggedappslabel = new HashSet<String>() {{
         add("whatsapp");
+        add("chrome");
     }
     };
 }
