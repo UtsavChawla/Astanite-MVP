@@ -88,6 +88,7 @@ import com.android.launcher3.util.VerticalFlingDetector;
 import com.android.launcher3.util.WallpaperOffsetInterpolator;
 import com.android.launcher3.widget.PendingAddShortcutInfo;
 import com.android.launcher3.widget.PendingAddWidgetInfo;
+import com.utsav.myapplication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -2223,6 +2224,18 @@ public class Workspace extends PagedView
      */
     public boolean acceptDrop(DragObject d) {
         // If it's an external drop (e.g. from All Apps), check if it should be accepted
+
+        //If drop is form flagged apps, it should be rejected
+        if(d.dragInfo.dumpProperties()!=null)
+        {
+            String properties = d.dragInfo.dumpProperties();
+            for(String s: myapplication.flaggedappspackage)
+            {
+                if(properties.contains(s))
+                    return false;
+            }
+        }
+
         CellLayout dropTargetLayout = mDropToLayout;
         if (d.dragSource != this) {
             // Don't accept the drop if we're not over a screen at time of drop
