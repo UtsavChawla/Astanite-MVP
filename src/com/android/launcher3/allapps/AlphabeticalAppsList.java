@@ -37,6 +37,7 @@ import com.android.launcher3.discovery.AppDiscoveryUpdateState;
 import com.android.launcher3.util.ComponentKey;
 import com.android.launcher3.util.ComponentKeyMapper;
 import com.android.launcher3.util.LabelComparator;
+import com.utsav.myapplication;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -305,6 +306,8 @@ public class AlphabeticalAppsList {
         updateAdapterItems();
     }
 
+    //predicted apps would not show the flagged apps
+
     private List<AppInfo> processPredictedAppComponents(List<ComponentKeyMapper<AppInfo>> components) {
         if (mComponentToAppMap.isEmpty()) {
             // Apps have not been bound yet.
@@ -315,6 +318,7 @@ public class AlphabeticalAppsList {
         for (ComponentKeyMapper<AppInfo> mapper : components) {
             AppInfo info = mapper.getItem(mComponentToAppMap);
             if (info != null) {
+                if(!myapplication.flaggedappspackage.contains(info.componentName.getPackageName()))
                 predictedApps.add(info);
             } else {
                 if (FeatureFlags.IS_DOGFOOD_BUILD) {
@@ -625,18 +629,37 @@ public class AlphabeticalAppsList {
                 || mAppDiscoveryUpdateState == AppDiscoveryUpdateState.UPDATE;
     }
 
+    /*Modified to block flagged apps.
+    Returns only when to block is false ie exact label name match.
+    Only one part of search is modified as other part never showed any activity while debugging.
+     */
+
     private List<AppInfo> getFiltersAppInfos() {
+        final ArrayList<AppInfo> result = new ArrayList<>();
+        AppInfo temp;
         if (mSearchResults == null) {
-            return mApps;
+            for(int x=0; x<mApps.size(); x++)
+            {
+                temp = mApps.get(x);
+                if(!myapplication.flaggedappspackage.contains(temp.componentName.getPackageName()))
+                {
+                    result.add(temp);
+                }
+            }
+            return result;
         }
 
         final LauncherAppsCompat launcherApps = LauncherAppsCompat.getInstance(mLauncher);
         final IconCache iconCache = LauncherAppState.getInstance(mLauncher).getIconCache();
         final UserManagerCompat userManagerCompat = UserManagerCompat.getInstance(mLauncher);
-        final ArrayList<AppInfo> result = new ArrayList<>();
         for (ComponentKey key : mSearchResults) {
             AppInfo match = mComponentToAppMap.get(key);
             if (match != null) {
+                if(myapplication.flaggedappspackage.contains(match.componentName.getPackageName())){
+                    if(!myapplication.toblock)
+                        result.add(match);
+                }
+                else
                 result.add(match);
             } else {
                 for (LauncherActivityInfo info : launcherApps.getActivityList(key.componentName.getPackageName(), key.user)) {

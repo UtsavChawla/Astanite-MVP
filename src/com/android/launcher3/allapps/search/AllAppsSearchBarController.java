@@ -21,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -35,6 +36,7 @@ import com.android.launcher3.discovery.AppDiscoveryItem;
 import com.android.launcher3.discovery.AppDiscoveryUpdateState;
 import com.android.launcher3.util.ComponentKey;
 import com.android.launcher3.util.PackageManagerHelper;
+import com.utsav.myapplication;
 
 import java.util.ArrayList;
 
@@ -85,16 +87,32 @@ public class AllAppsSearchBarController
         // Do nothing
     }
 
+    /*aftettextchanged function edited change toblock value.
+    It is only true when exact label matches with one of flaggedapplabel
+     */
+
     @Override
     public void afterTextChanged(final Editable s) {
         mQuery = s.toString();
         if (mQuery.isEmpty()) {
+            myapplication.toblock=true;
             mSearchAlgorithm.cancel(true);
             mCb.clearSearchResult();
         } else {
+            if(myapplication.flaggedappslabel.contains(mQuery.toLowerCase()))
+            {
+                myapplication.toblock=false;
+            }
             mSearchAlgorithm.cancel(false);
             mSearchAlgorithm.doSearch(mQuery, mCb);
         }
+    }
+
+    public String output(boolean x) {
+        if(x)
+            return "true";
+        else
+            return "false";
     }
 
     public void refreshSearchResult() {
