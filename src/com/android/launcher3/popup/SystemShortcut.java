@@ -1,9 +1,11 @@
 package com.android.launcher3.popup;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.android.launcher3.AbstractFloatingView;
@@ -14,8 +16,11 @@ import com.android.launcher3.R;
 import com.android.launcher3.model.WidgetItem;
 import com.android.launcher3.util.PackageUserKey;
 import com.android.launcher3.widget.WidgetsBottomSheet;
+import com.utsav.mConstants;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.android.launcher3.userevent.nano.LauncherLogProto.Action;
 import static com.android.launcher3.userevent.nano.LauncherLogProto.ControlType;
@@ -88,8 +93,12 @@ public abstract class SystemShortcut extends ItemInfo {
     }
 
     public static class AppInfo extends SystemShortcut {
-        public AppInfo() {
+
+        private Context mContext;
+
+        public AppInfo(Context temp) {
             super(R.drawable.ic_info_no_shadow, R.string.app_info_drop_target_label);
+            mContext = temp;
         }
 
         @Override
@@ -98,11 +107,33 @@ public abstract class SystemShortcut extends ItemInfo {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Rect sourceBounds = launcher.getViewBounds(view);
-                    Bundle opts = launcher.getActivityLaunchOptions(view);
-                    InfoDropTarget.startDetailsActivityForInfo(itemInfo, launcher, null, sourceBounds, opts);
-                    launcher.getUserEventDispatcher().logActionOnControl(Action.Touch.TAP,
-                            ControlType.APPINFO_TARGET, view);
+
+                    AbstractFloatingView.closeAllOpenViews(launcher);
+                    String title = itemInfo.title.toString().toLowerCase();
+                    String packname = itemInfo.getTargetComponent().getPackageName().toLowerCase();
+
+                    SharedPreferences preferences = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE);
+                    Set<String> titleset = preferences.getStringSet(mConstants.flaggedtitlekey, new HashSet<String>());
+                    Set<String> packnameset = preferences.getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
+                    if(titleset.contains(title))
+                    {
+                       titleset.remove(title);
+                       packnameset.remove(packname);
+                    }
+                    else
+                    {
+                        titleset.add(title);
+                        packnameset.add(packname);
+                    }
+
+                    preferences.edit().putStringSet(mConstants.flaggedtitlekey, titleset).apply();
+                    preferences.edit().putStringSet(mConstants.flaggedpackagekey, packnameset).apply();
+
+                    //Rect sourceBounds = launcher.getViewBounds(view);
+                    //Bundle opts = launcher.getActivityLaunchOptions(view);
+                    //InfoDropTarget.startDetailsActivityForInfo(itemInfo, launcher, null, sourceBounds, opts);
+                    //launcher.getUserEventDispatcher().logActionOnControl(Action.Touch.TAP,
+                    //ControlType.APPINFO_TARGET, view);
                 }
             };
         }

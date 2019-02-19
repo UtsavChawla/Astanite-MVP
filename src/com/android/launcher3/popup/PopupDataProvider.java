@@ -64,11 +64,11 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
     /** Maps packages to their BadgeInfo's . */
     private Map<PackageUserKey, BadgeInfo> mPackageUserToBadgeInfos = new HashMap<>();
 
-    public PopupDataProvider(Launcher launcher) {
+    public PopupDataProvider(Launcher launcher, Context context) {
         mLauncher = launcher;
         mSystemShortcuts = new SystemShortcut[] {
                 Utilities.getOverrideObject(SystemShortcut.Custom.class, launcher, R.string.custom_shortcut_class),
-                new SystemShortcut.AppInfo(),
+                new SystemShortcut.AppInfo(context),
                 new SystemShortcut.Widgets(),
         };
     }

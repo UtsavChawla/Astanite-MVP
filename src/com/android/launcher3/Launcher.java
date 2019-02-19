@@ -422,7 +422,7 @@ public class Launcher extends BaseActivity
         mDeviceProfile.layout(this, false /* notifyListeners */);
         loadExtractedColorsAndColorItems();
 
-        mPopupDataProvider = new PopupDataProvider(this);
+        mPopupDataProvider = new PopupDataProvider(this, getBaseContext());
 
         ((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 .addAccessibilityStateChangeListener(this);
