@@ -37,14 +37,17 @@ import com.android.launcher3.discovery.AppDiscoveryUpdateState;
 import com.android.launcher3.util.ComponentKey;
 import com.android.launcher3.util.ComponentKeyMapper;
 import com.android.launcher3.util.LabelComparator;
+import com.utsav.mConstants;
 import com.utsav.myapplication;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -169,6 +172,7 @@ public class AlphabeticalAppsList {
     }
 
     private final Launcher mLauncher;
+    private final Context mContext;
 
     // The set of apps from the system not including predictions
     private final List<AppInfo> mApps = new ArrayList<>();
@@ -200,6 +204,7 @@ public class AlphabeticalAppsList {
         mLauncher = Launcher.getLauncher(context);
         mIndexer = new AlphabeticIndexCompat(context);
         mAppNameComparator = new AppInfoComparator(context);
+        mContext = context;
     }
 
     /**
@@ -314,11 +319,12 @@ public class AlphabeticalAppsList {
             return Collections.emptyList();
         }
 
+        Set<String> pnames = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
         List<AppInfo> predictedApps = new ArrayList<>();
         for (ComponentKeyMapper<AppInfo> mapper : components) {
             AppInfo info = mapper.getItem(mComponentToAppMap);
             if (info != null) {
-                if(!myapplication.flaggedappspackage.contains(info.componentName.getPackageName()))
+                if(!pnames.contains(info.componentName.getPackageName()))
                 predictedApps.add(info);
             } else {
                 if (FeatureFlags.IS_DOGFOOD_BUILD) {
@@ -637,11 +643,12 @@ public class AlphabeticalAppsList {
     private List<AppInfo> getFiltersAppInfos() {
         final ArrayList<AppInfo> result = new ArrayList<>();
         AppInfo temp;
+        Set<String> pnames = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
         if (mSearchResults == null) {
             for(int x=0; x<mApps.size(); x++)
             {
                 temp = mApps.get(x);
-                if(!myapplication.flaggedappspackage.contains(temp.componentName.getPackageName()))
+                if(!pnames.contains(temp.componentName.getPackageName()))
                 {
                     result.add(temp);
                 }
@@ -655,7 +662,7 @@ public class AlphabeticalAppsList {
         for (ComponentKey key : mSearchResults) {
             AppInfo match = mComponentToAppMap.get(key);
             if (match != null) {
-                if(myapplication.flaggedappspackage.contains(match.componentName.getPackageName())){
+                if(pnames.contains(match.componentName.getPackageName())){
                     if(!myapplication.toblock)
                         result.add(match);
                 }

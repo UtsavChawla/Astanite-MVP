@@ -36,9 +36,11 @@ import com.android.launcher3.discovery.AppDiscoveryItem;
 import com.android.launcher3.discovery.AppDiscoveryUpdateState;
 import com.android.launcher3.util.ComponentKey;
 import com.android.launcher3.util.PackageManagerHelper;
+import com.utsav.mConstants;
 import com.utsav.myapplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * An interface to a search box that AllApps can command.
@@ -47,6 +49,7 @@ public class AllAppsSearchBarController
         implements TextWatcher, OnEditorActionListener, ExtendedEditText.OnBackKeyListener {
 
     protected Launcher mLauncher;
+    protected Context mContext;
     protected Callbacks mCb;
     protected ExtendedEditText mInput;
     protected String mQuery;
@@ -70,6 +73,8 @@ public class AllAppsSearchBarController
         mInput.addTextChangedListener(this);
         mInput.setOnEditorActionListener(this);
         mInput.setOnBackKeyListener(this);
+
+        mContext = mInput.getContext();
 
         mInputMethodManager = (InputMethodManager)
                 mInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -99,7 +104,7 @@ public class AllAppsSearchBarController
             mSearchAlgorithm.cancel(true);
             mCb.clearSearchResult();
         } else {
-            if(myapplication.flaggedappslabel.contains(mQuery.toLowerCase()))
+            if(mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedtitlekey, new HashSet<String>()).contains(mQuery.toLowerCase()))
             {
                 myapplication.toblock=false;
             }
