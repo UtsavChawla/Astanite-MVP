@@ -88,6 +88,7 @@ import com.android.launcher3.util.VerticalFlingDetector;
 import com.android.launcher3.util.WallpaperOffsetInterpolator;
 import com.android.launcher3.widget.PendingAddShortcutInfo;
 import com.android.launcher3.widget.PendingAddWidgetInfo;
+import com.utsav.mConstants;
 import com.utsav.myapplication;
 
 import java.util.ArrayList;
@@ -2229,7 +2230,7 @@ public class Workspace extends PagedView
         if(d.dragInfo.dumpProperties()!=null)
         {
             String properties = d.dragInfo.dumpProperties();
-            for(String s: myapplication.flaggedappspackage)
+            for(String s: getContext().getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>()))
             {
                 if(properties.contains(s))
                     return false;
