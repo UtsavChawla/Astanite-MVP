@@ -126,8 +126,23 @@ public abstract class SystemShortcut extends ItemInfo {
                         packnameset.add(packname);
                     }
 
-                    preferences.edit().putStringSet(mConstants.flaggedtitlekey, titleset).apply();
-                    preferences.edit().putStringSet(mConstants.flaggedpackagekey, packnameset).apply();
+                    SharedPreferences.Editor editing = preferences.edit();
+
+                    editing.remove(mConstants.flaggedpackagekey).apply();
+                    editing.remove(mConstants.flaggedtitlekey).apply();
+
+                    editing.putStringSet(mConstants.flaggedpackagekey, packnameset).apply();
+                    editing.putStringSet(mConstants.flaggedtitlekey, titleset).apply();
+
+                    for(String s : packnameset)
+                    {
+                        Log.e("element ", s );
+                    }
+
+                    for(String s : titleset)
+                    {
+                        Log.e( "elementtitle ", s);
+                    }
 
                     //Rect sourceBounds = launcher.getViewBounds(view);
                     //Bundle opts = launcher.getActivityLaunchOptions(view);
