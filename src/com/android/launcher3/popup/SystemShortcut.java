@@ -134,16 +134,6 @@ public abstract class SystemShortcut extends ItemInfo {
                     editing.putStringSet(mConstants.flaggedpackagekey, packnameset).apply();
                     editing.putStringSet(mConstants.flaggedtitlekey, titleset).apply();
 
-                    for(String s : packnameset)
-                    {
-                        Log.e("element ", s );
-                    }
-
-                    for(String s : titleset)
-                    {
-                        Log.e( "elementtitle ", s);
-                    }
-
                     //Rect sourceBounds = launcher.getViewBounds(view);
                     //Bundle opts = launcher.getActivityLaunchOptions(view);
                     //InfoDropTarget.startDetailsActivityForInfo(itemInfo, launcher, null, sourceBounds, opts);
