@@ -33,7 +33,7 @@ import static com.android.launcher3.userevent.nano.LauncherLogProto.ControlType;
  */
 public abstract class SystemShortcut extends ItemInfo {
     private final int mIconResId;
-    private final int mLabelResId;
+    private int mLabelResId;
 
     public SystemShortcut(int iconResId, int labelResId) {
         mIconResId = iconResId;
@@ -104,26 +104,40 @@ public abstract class SystemShortcut extends ItemInfo {
         @Override
         public View.OnClickListener getOnClickListener(final Launcher launcher,
                 final ItemInfo itemInfo) {
+            final String title = itemInfo.title.toString().toLowerCase();
+            final String packname = itemInfo.getTargetComponent().getPackageName().toLowerCase();
+
+            final SharedPreferences preferences = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE);
+            final Set<String> titleset = preferences.getStringSet(mConstants.flaggedtitlekey, new HashSet<String>());
+            final Set<String> packnameset = preferences.getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
+
+            final Boolean toflag;
+
+            if(titleset.contains(title))
+            {
+                toflag = false;
+                super.mLabelResId = R.string.unflag_app;
+            }
+            else
+            {
+                toflag = true;
+                super.mLabelResId = R.string.flag_app;
+            }
+
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     AbstractFloatingView.closeAllOpenViews(launcher);
-                    String title = itemInfo.title.toString().toLowerCase();
-                    String packname = itemInfo.getTargetComponent().getPackageName().toLowerCase();
-
-                    SharedPreferences preferences = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE);
-                    Set<String> titleset = preferences.getStringSet(mConstants.flaggedtitlekey, new HashSet<String>());
-                    Set<String> packnameset = preferences.getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
-                    if(titleset.contains(title))
-                    {
-                       titleset.remove(title);
-                       packnameset.remove(packname);
-                    }
-                    else
+                    if(toflag)
                     {
                         titleset.add(title);
                         packnameset.add(packname);
+                    }
+                    else
+                    {
+                        titleset.remove(title);
+                        packnameset.remove(packname);
                     }
 
                     SharedPreferences.Editor editing = preferences.edit();
