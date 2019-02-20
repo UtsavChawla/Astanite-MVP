@@ -3088,6 +3088,10 @@ public class Launcher extends BaseActivity
         }
     }
 
+    public void launcherflagclick() {
+        mAppsView.updateonflagclick();
+    }
+
     void lockAllApps() {
         // TODO
     }

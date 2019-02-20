@@ -115,6 +115,13 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
     }
 
     /**
+     * Updates the apps on flag click
+     */
+    public void updateonflagclick() {
+        mApps.updateAdapterItems();
+    }
+
+    /**
      * Sets the current set of predicted apps.
      */
     public void setPredictedApps(List<ComponentKeyMapper<AppInfo>> apps) {
