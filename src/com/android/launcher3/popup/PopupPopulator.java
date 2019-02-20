@@ -88,7 +88,8 @@ public class PopupPopulator {
             items[0] = Item.NOTIFICATION;
         }
         // The system shortcuts are always last.
-        boolean iconsOnly = !shortcutIds.isEmpty();
+        //Edit: Iconsonly is always false now
+        boolean iconsOnly = false;//!shortcutIds.isEmpty();
         for (int i = 0; i < systemShortcuts.size(); i++) {
             items[numItems - 1 - i] = iconsOnly ? Item.SYSTEM_SHORTCUT_ICON : Item.SYSTEM_SHORTCUT;
         }
