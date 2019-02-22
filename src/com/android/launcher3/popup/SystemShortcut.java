@@ -133,6 +133,7 @@ public abstract class SystemShortcut extends ItemInfo {
                     {
                         titleset.add(title);
                         packnameset.add(packname);
+                        launcher.getWorkspace().removeAbandonedPromise(packname, user);
                     }
                     else
                     {
