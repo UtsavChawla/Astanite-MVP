@@ -43,6 +43,7 @@
         android:summary="@string/auto_add_shortcuts_description"
         android:defaultValue="true"
         android:persistent="true"
+        android:enabled="false"
         />
 
     <SwitchPreference
