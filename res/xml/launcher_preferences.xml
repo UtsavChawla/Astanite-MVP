@@ -94,7 +94,8 @@
     <PreferenceScreen
         android:key="about_screen"
         android:title="@string/about"
-        android:persistent="false">
+        android:persistent="false"
+        android:enabled="false">
 
         <Preference
             android:key="about_app_version"
