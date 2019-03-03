@@ -64,6 +64,12 @@
         android:restoreAnyVersion="true"
         android:supportsRtl="true" >
 
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
         <!--
         Main launcher activity. When extending only change the name, and keep all the
         attributes and intent filters the same

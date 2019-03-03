@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "362394914245",
+    "firebase_url": "https://astanitemvp.firebaseio.com",
+    "project_id": "astanitemvp",
+    "storage_bucket": "astanitemvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362394914245:android:7a79e4e42314e97b",
+        "android_client_info": {
+          "package_name": "com.astanite.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362394914245-9at6l0olka7id153gtfgappuscl886ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCqEH-XmPS5GiqXagMt8IVa5iqGf6grXQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
