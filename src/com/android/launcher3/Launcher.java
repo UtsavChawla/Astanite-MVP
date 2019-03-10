@@ -1059,6 +1059,11 @@ public class Launcher extends BaseActivity
             mLauncherCallbacks.onResume();
         }
 
+        if(true)
+        {
+            startActivity(new Intent(Launcher.this, uIntro1.class));
+        }
+
     }
 
     @Override
