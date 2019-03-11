@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
+import com.utsav.mConstants;
 
 public class uIntro3 extends AppCompatActivity implements utab1.OnFragmentInteractionListener, utab2.OnFragmentInteractionListener, utab3.OnFragmentInteractionListener{
 
@@ -40,6 +41,7 @@ public class uIntro3 extends AppCompatActivity implements utab1.OnFragmentIntera
                     case 1: viewPager.setCurrentItem(2);
                         break;
                     case 2: startActivity(new Intent(uIntro3.this, NexusLauncherActivity.class));
+                        getApplicationContext().getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).edit().putBoolean(mConstants.intro,false).apply();
                         break;
                 }
             }

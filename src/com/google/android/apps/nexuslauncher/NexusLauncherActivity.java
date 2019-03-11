@@ -16,6 +16,7 @@ import com.android.launcher3.uIntro1;
 import com.android.launcher3.util.ComponentKeyMapper;
 import com.android.launcher3.util.ViewOnDrawExecutor;
 import com.google.android.libraries.gsa.launcherclient.LauncherClient;
+import com.utsav.mConstants;
 
 import java.util.List;
 
@@ -31,8 +32,7 @@ public class NexusLauncherActivity extends Launcher {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        Log.e( "onCreate: " , "Nexus Created");
+        Log.e(TAG, "onCreate: " );
         FeatureFlags.QSB_ON_FIRST_SCREEN = showSmartspace();
         mThemeHints = themeHints();
 
@@ -53,14 +53,16 @@ public class NexusLauncherActivity extends Launcher {
             // This is overwritten in Launcher.onResume
             setWorkspaceLoading(false);
         }
+
+        if(getApplicationContext().getSharedPreferences(mConstants.Sharedprefname,MODE_PRIVATE).getBoolean(mConstants.intro,true))
+        {
+            startActivity(new Intent(NexusLauncherActivity.this, uIntro1.class));
+            finish();
+        }
     }
 
     @Override
     protected void onResume() {
-        if(true)
-        {
-            startActivity(new Intent(NexusLauncherActivity.this, uIntro1.class));
-        }
         super.onResume();
     }
 

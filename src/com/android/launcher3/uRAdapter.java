@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class uRAdapter extends RecyclerView.Adapter<uRAdapter.ViewHolder> {
-    private List<uAppInfo> appsList;
+    public List<uAppInfo> appsList;
     Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
