@@ -3,7 +3,6 @@ package com.android.launcher3;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;

@@ -217,11 +217,14 @@
         <activity
             android:name=".uIntro1"
             android:label="@string/title_activity_u_intro1"
-            android:theme="@style/Intro1Theme"/>
+            android:theme="@style/Intro1Theme" />
         <activity
             android:name=".uIntro2"
             android:label="@string/title_activity_u_intro2"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".uIntro3"
+            android:label="@string/title_activity_u_intro3"></activity>
     </application>
 
 </manifest>
