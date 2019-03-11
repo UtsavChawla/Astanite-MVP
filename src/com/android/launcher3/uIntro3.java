@@ -1,5 +1,6 @@
 package com.android.launcher3;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
 
 public class uIntro3 extends AppCompatActivity implements utab1.OnFragmentInteractionListener, utab2.OnFragmentInteractionListener, utab3.OnFragmentInteractionListener{
 
@@ -36,7 +39,7 @@ public class uIntro3 extends AppCompatActivity implements utab1.OnFragmentIntera
                         break;
                     case 1: viewPager.setCurrentItem(2);
                         break;
-                    case 2:
+                    case 2: startActivity(new Intent(uIntro3.this, NexusLauncherActivity.class));
                         break;
                 }
             }

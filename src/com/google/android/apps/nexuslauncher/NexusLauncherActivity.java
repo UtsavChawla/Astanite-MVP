@@ -1,8 +1,10 @@
 package com.google.android.apps.nexuslauncher;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.android.launcher3.AppInfo;
 import com.android.launcher3.Launcher;
@@ -10,6 +12,7 @@ import com.android.launcher3.R;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.compat.WallpaperManagerCompat;
 import com.android.launcher3.config.FeatureFlags;
+import com.android.launcher3.uIntro1;
 import com.android.launcher3.util.ComponentKeyMapper;
 import com.android.launcher3.util.ViewOnDrawExecutor;
 import com.google.android.libraries.gsa.launcherclient.LauncherClient;
@@ -28,6 +31,8 @@ public class NexusLauncherActivity extends Launcher {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        Log.e( "onCreate: " , "Nexus Created");
         FeatureFlags.QSB_ON_FIRST_SCREEN = showSmartspace();
         mThemeHints = themeHints();
 
@@ -48,6 +53,15 @@ public class NexusLauncherActivity extends Launcher {
             // This is overwritten in Launcher.onResume
             setWorkspaceLoading(false);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        if(true)
+        {
+            startActivity(new Intent(NexusLauncherActivity.this, uIntro1.class));
+        }
+        super.onResume();
     }
 
     @Override
