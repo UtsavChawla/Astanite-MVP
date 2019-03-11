@@ -1,6 +1,10 @@
 package com.google.android.apps.nexuslauncher;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -10,7 +14,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Display;
 
 import com.android.launcher3.AppInfo;
@@ -30,11 +36,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.security.AccessController.getContext;
+
 public class NexusLauncherActivity extends Launcher {
     private final static String PREF_IS_RELOAD = "pref_reload_workspace";
     private NexusLauncher mLauncher;
     private boolean mIsReload;
     private String mThemeHints;
+
+    public AlertDialog alertDialog;
 
     public NexusLauncherActivity() {
         mLauncher = new NexusLauncher(this);
@@ -79,6 +89,14 @@ public class NexusLauncherActivity extends Launcher {
             if(!getApplicationContext().getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getBoolean(mConstants.intro,true))
             {
                 Log.e(TAG, "Take action " );
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(NexusLauncherActivity.this);
+                builder.setTitle("Message")
+                        .setMessage("Hello")
+                        .setNeutralButton("OK", null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         }
     }
