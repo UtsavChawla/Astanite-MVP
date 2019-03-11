@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.content.pm.LauncherActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Process;
 import android.os.UserHandle;
 import android.util.Log;
+import android.view.Display;
 
 import com.android.launcher3.AppInfo;
 import com.android.launcher3.Launcher;
@@ -62,18 +64,29 @@ public class NexusLauncherActivity extends Launcher {
         {
             startActivity(new Intent(NexusLauncherActivity.this, uIntro1.class));
             finish();
-        } else if(true) {
-            Set<String> temp = getApplicationContext().getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
-            for(String s : temp)
-            {
-                Log.e( "onCreate: ", s );
-            }
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        if(getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getBoolean(mConstants.intofinal,true))
+        {
+            Log.e(TAG, "onPause: " );
+            Set<String> packnames = getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
+
+            for(String temp : packnames)
+            {
+                getWorkspace().removeAbandonedPromise(temp, Process.myUserHandle());
+            }
+
+            getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).edit().putBoolean(mConstants.intofinal, false).apply();
+        }
+        super.onPause();
     }
 
     @Override
