@@ -48,6 +48,7 @@ public class utab1 extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +68,11 @@ public class utab1 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TextView tv1 = view.findViewById(R.id.tv1);
-        //TextView tv2 = view.findViewById(R.id.tv2);
-        //Typeface poppins = Typeface.createFromAsset(getContext().getAssets(), "poppins.ttf");
-        //tv1.setTypeface(poppins);
-        //tv2.setTypeface(poppins);
+        TextView tv1 = view.findViewById(R.id.tv1);
+        TextView tv2 = view.findViewById(R.id.tv2);
+        Typeface poppins = Typeface.createFromAsset(getContext().getAssets(), "poppins.ttf");
+        tv1.setTypeface(poppins);
+        tv2.setTypeface(poppins);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

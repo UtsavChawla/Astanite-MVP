@@ -8,9 +8,41 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:text="tab2"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifHolder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="260dp"
+        android:src="@drawable/gif2"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"/>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="personalize"
+        android:textSize="18dp"
+        android:textAllCaps="true"
+        android:textColor="#5B6074"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv2"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:text="Long press app icons to flag or unflag them"
+        android:textSize="14dp"
+        android:textAlignment="center"
+        android:textColor="#5B6074"
+        android:alpha="0.9"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gifHolder"
+        android:layout_marginBottom="70dp"/>
 
 </android.support.constraint.ConstraintLayout>
