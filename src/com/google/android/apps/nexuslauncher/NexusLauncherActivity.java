@@ -1,8 +1,11 @@
 package com.google.android.apps.nexuslauncher;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.LauncherActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Process;
@@ -22,6 +25,7 @@ import com.android.launcher3.util.ViewOnDrawExecutor;
 import com.google.android.libraries.gsa.launcherclient.LauncherClient;
 import com.utsav.mConstants;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,6 +74,13 @@ public class NexusLauncherActivity extends Launcher {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isMyLauncherDefault())
+        {
+            if(!getApplicationContext().getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getBoolean(mConstants.intro,true))
+            {
+                Log.e(TAG, "Take action " );
+            }
+        }
     }
 
     @Override
@@ -159,5 +170,27 @@ public class NexusLauncherActivity extends Launcher {
 
     public LauncherClient getGoogleNow() {
         return mLauncher.mClient;
+    }
+
+    boolean isMyLauncherDefault() {
+        final IntentFilter filter = new IntentFilter(Intent.ACTION_MAIN);
+        filter.addCategory(Intent.CATEGORY_HOME);
+
+        List<IntentFilter> filters = new ArrayList<IntentFilter>();
+        filters.add(filter);
+
+        final String myPackageName = getPackageName();
+        List<ComponentName> activities = new ArrayList<ComponentName>();
+        final PackageManager packageManager = (PackageManager) getPackageManager();
+
+        // You can use name of your package here as third argument
+        packageManager.getPreferredActivities(filters, activities, null);
+
+        for (ComponentName activity : activities) {
+            if (myPackageName.equals(activity.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
