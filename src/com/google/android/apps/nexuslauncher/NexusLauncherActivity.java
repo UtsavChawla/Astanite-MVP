@@ -2,8 +2,10 @@ package com.google.android.apps.nexuslauncher;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.LauncherActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.util.Log;
 
 import com.android.launcher3.AppInfo;
@@ -18,7 +20,9 @@ import com.android.launcher3.util.ViewOnDrawExecutor;
 import com.google.android.libraries.gsa.launcherclient.LauncherClient;
 import com.utsav.mConstants;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NexusLauncherActivity extends Launcher {
     private final static String PREF_IS_RELOAD = "pref_reload_workspace";
@@ -58,6 +62,12 @@ public class NexusLauncherActivity extends Launcher {
         {
             startActivity(new Intent(NexusLauncherActivity.this, uIntro1.class));
             finish();
+        } else if(true) {
+            Set<String> temp = getApplicationContext().getSharedPreferences(mConstants.Sharedprefname, MODE_PRIVATE).getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
+            for(String s : temp)
+            {
+                Log.e( "onCreate: ", s );
+            }
         }
     }
 
