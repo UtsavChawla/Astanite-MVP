@@ -216,10 +216,12 @@
 
         <activity
             android:name=".uIntro1"
-            android:label="@string/title_activity_u_intro1" />
+            android:label="@string/title_activity_u_intro1"
+            android:theme="@style/Intro1Theme"/>
         <activity
             android:name=".uIntro2"
-            android:label="@string/title_activity_u_intro2"></activity>
+            android:label="@string/title_activity_u_intro2"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

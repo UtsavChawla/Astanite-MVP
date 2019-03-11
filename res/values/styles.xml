@@ -28,6 +28,10 @@
         <item name="android:keyboardLayout">@layout/search_container_all_apps</item>
     </style>
 
+    <style name="Intro1Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="BaseLauncherThemeWithCustomAttrs" parent="@style/BaseLauncherTheme">
         <item name="allAppsScrimColor">#CCFFFFFF</item>
         <item name="allAppsNavBarScrimColor">@color/all_apps_navbar_color</item>
