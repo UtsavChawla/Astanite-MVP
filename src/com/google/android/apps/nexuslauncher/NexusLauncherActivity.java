@@ -90,10 +90,17 @@ public class NexusLauncherActivity extends Launcher {
             {
                 Log.e(TAG, "Take action " );
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(NexusLauncherActivity.this);
-                builder.setTitle("Message")
-                        .setMessage("Hello")
-                        .setNeutralButton("OK", null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(NexusLauncherActivity.this, R.style.DialogAlert));
+                builder.setTitle("Get Started")
+                        .setMessage("Enable Astanite as your default Launcher/Home App.")
+                        .setIcon(R.drawable.ic_security_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(Settings.ACTION_HOME_SETTINGS));
+                            }
+                        });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
