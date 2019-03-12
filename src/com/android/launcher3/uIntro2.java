@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class uIntro2 extends AppCompatActivity {
         Typeface roboto = Typeface.createFromAsset(getAssets(), "robotolight.ttf");
         description.setTypeface(roboto);
 
-        final FloatingActionButton fab = findViewById(R.id.fab);
+        final ImageButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,25 +89,6 @@ public class uIntro2 extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Select at least 2 apps", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if(newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    Log.e( "onScrollStateChanged: ", "Idle" );
-                    fab.show();
-                }else if(newState == RecyclerView.SCROLL_STATE_DRAGGING)
-                {
-                    Log.e( "onScrollStateChanged: ", "Dragging" );
-                    fab.hide();
-                }
-
             }
         });
     }
