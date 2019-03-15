@@ -41,6 +41,7 @@ import com.utsav.myapplication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An interface to a search box that AllApps can command.
@@ -99,13 +100,25 @@ public class AllAppsSearchBarController
     @Override
     public void afterTextChanged(final Editable s) {
         mQuery = s.toString();
+
         if (mQuery.isEmpty()) {
             myapplication.toblock=true;
             mSearchAlgorithm.cancel(true);
             mCb.clearSearchResult();
         } else {
-            if(mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedtitlekey, new HashSet<String>()).contains(mQuery.toLowerCase()))
+
+            Log.e( "afterTextChanged: ", SoundExClass.getGode(mQuery));
+
+            Set<String> temp = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedsoundextitle, new HashSet<String>());
+
+            for( String ok: temp)
             {
+                Log.e( "afterTextSaved: ", ok);
+            }
+
+            if(mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE).getStringSet(mConstants.flaggedsoundextitle, new HashSet<String>()).contains(SoundExClass.getGode(mQuery)))
+            {
+                Log.e("match" , "match" );
                 myapplication.toblock=false;
             }
             mSearchAlgorithm.cancel(false);

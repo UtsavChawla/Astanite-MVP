@@ -125,6 +125,9 @@ public class DefaultAppSearchAlgorithm implements SearchAlgorithm {
             query = normalize(query);
         }
 
+        if(SoundExClass.getGode(title).equals(SoundExClass.getGode(query)))
+            return true;
+
         int lastType;
         int thisType = Character.UNASSIGNED;
         int nextType = Character.getType(title.codePointAt(0));
@@ -140,6 +143,7 @@ public class DefaultAppSearchAlgorithm implements SearchAlgorithm {
                 return true;
             }
         }
+
         return false;
     }
 

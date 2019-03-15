@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.launcher3.allapps.search.SoundExClass;
 import com.utsav.mConstants;
 
 import java.util.HashSet;
@@ -65,6 +66,7 @@ public class uIntro2 extends AppCompatActivity {
 
                     Set<String> flagpackages = new HashSet<>();
                     Set<String> flagtitles = new HashSet<>();
+                    Set<String> flagsoundex = new HashSet<>();
 
                     for(uAppInfo instance : ListCopy)
                     {
@@ -72,6 +74,7 @@ public class uIntro2 extends AppCompatActivity {
                         {
                             flagpackages.add(instance.packageName.toLowerCase());
                             flagtitles.add(instance.label.toLowerCase());
+                            flagsoundex.add(SoundExClass.getGode(instance.label));
                         }
                     }
 
@@ -79,9 +82,11 @@ public class uIntro2 extends AppCompatActivity {
 
                     editing.remove(mConstants.flaggedpackagekey).apply();
                     editing.remove(mConstants.flaggedtitlekey).apply();
+                    editing.remove(mConstants.flaggedsoundextitle).apply();
 
                     editing.putStringSet(mConstants.flaggedpackagekey, flagpackages).apply();
                     editing.putStringSet(mConstants.flaggedtitlekey, flagtitles).apply();
+                    editing.putStringSet(mConstants.flaggedsoundextitle, flagsoundex).apply();
 
                     load.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.INVISIBLE);

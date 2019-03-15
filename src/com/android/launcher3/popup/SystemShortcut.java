@@ -13,6 +13,7 @@ import com.android.launcher3.InfoDropTarget;
 import com.android.launcher3.ItemInfo;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.R;
+import com.android.launcher3.allapps.search.SoundExClass;
 import com.android.launcher3.model.WidgetItem;
 import com.android.launcher3.util.PackageUserKey;
 import com.android.launcher3.widget.WidgetsBottomSheet;
@@ -110,6 +111,7 @@ public abstract class SystemShortcut extends ItemInfo {
             final SharedPreferences preferences = mContext.getSharedPreferences(mConstants.Sharedprefname, Context.MODE_PRIVATE);
             final Set<String> titleset = preferences.getStringSet(mConstants.flaggedtitlekey, new HashSet<String>());
             final Set<String> packnameset = preferences.getStringSet(mConstants.flaggedpackagekey, new HashSet<String>());
+            final Set<String> flaggedsoundex = preferences.getStringSet(mConstants.flaggedsoundextitle, new HashSet<String>());
 
             final Boolean toflag;
 
@@ -133,6 +135,7 @@ public abstract class SystemShortcut extends ItemInfo {
                     {
                         titleset.add(title);
                         packnameset.add(packname);
+                        flaggedsoundex.add(SoundExClass.getGode(title));
                         launcher.getWorkspace().removeAbandonedPromise(packname, user);
                     }
                     else
@@ -145,9 +148,11 @@ public abstract class SystemShortcut extends ItemInfo {
 
                     editing.remove(mConstants.flaggedpackagekey).apply();
                     editing.remove(mConstants.flaggedtitlekey).apply();
+                    editing.remove(mConstants.flaggedsoundextitle).apply();
 
                     editing.putStringSet(mConstants.flaggedpackagekey, packnameset).apply();
                     editing.putStringSet(mConstants.flaggedtitlekey, titleset).apply();
+                    editing.putStringSet(mConstants.flaggedsoundextitle, flaggedsoundex).apply();
 
                     launcher.launcherflagclick();
 
