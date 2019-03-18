@@ -21,18 +21,28 @@
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="type full name"
+        android:text="type full name!"
         android:textSize="18dp"
         android:textAllCaps="true"
-        android:textColor="#5B6074"
+        android:textColor="#FF0000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv2"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_warning_black_24dp"
+        app:layout_constraintRight_toLeftOf="@id/tv1"
+        app:layout_constraintTop_toTopOf="@id/tv1"
+        app:layout_constraintBottom_toBottomOf="@id/tv1"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/tv2"
-        android:text="Find flagged apps by typing complete name"
+        android:text="Find flagged apps ONLY by typing complete name"
         android:textSize="14dp"
         android:textAlignment="center"
         android:textColor="#5B6074"
