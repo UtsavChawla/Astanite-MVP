@@ -35,10 +35,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            applicationIdSuffix ".debug"
-        }
 
         optimized {
             initWith debug
@@ -56,14 +52,12 @@ android {
 
     productFlavors {
         aosp {
-            applicationId 'com.astanite'
-            testApplicationId 'com.astanite'
+            applicationId 'com.astanite.debug'
             flavorDimensions 'default'
         }
 
         l3go {
-            applicationId 'com.astanite'
-            testApplicationId 'com.astanite'
+            applicationId 'com.astanite.debug'
             flavorDimensions 'default'
         }
     }
