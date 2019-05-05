@@ -75,10 +75,6 @@ public class SoundExClass {
         for (int i = 1; i < x.length; i++)
             if (x[i] != x[i - 1] && x[i] != '0')
                 output += x[i];
-
-        //RULE [ 4 ]
-        //Pad with 0's or truncate
-        output = output + "0000";
-        return output.substring(0, 4);
+        return output;
     }
 }
